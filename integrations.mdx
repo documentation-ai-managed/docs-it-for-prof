@@ -1,0 +1,167 @@
+---
+title: Integrations and System Compatibility
+description: Understand how IT For Prof integrates with your existing business systems and networks for seamless IT administration.
+---
+
+## Overview
+
+IT For Prof seamlessly integrates with your existing IT infrastructure, enabling automated monitoring, support ticketing, and system maintenance. You can connect third-party tools for alerts, set up webhooks for real-time notifications, configure legacy systems, and access our API for custom automation. This ensures your networks and servers operate without interruption while leveraging your current stack.
+
+<Callout kind="info">
+  All integrations use secure HTTPS endpoints at `https://api.example.com`. Obtain your API key from the [dashboard](https://dashboard.example.com).
+</Callout>
+
+## Popular Integrations
+
+Discover ready-to-use connections with common IT tools. These integrations handle alerts, tickets, and monitoring data flow directly into IT For Prof.
+
+<Columns cols={3}>
+  <Card title="Slack Notifications" icon="message-circle" href="#slack-setup">
+    Receive real-time server alerts in your Slack channels.
+  </Card>
+  <Card title="Jira Ticketing" icon="file-text" href="#jira">
+    Automatically create support tickets from system issues.
+  </Card>
+  <Card title="Prometheus Monitoring" icon="trending-up" href="#prometheus">
+    Export metrics for advanced infrastructure analytics.
+  </Card>
+</Columns>
+
+## Webhook Setup for Monitoring
+
+Set up webhooks to push monitoring events from your systems to IT For Prof. This triggers automated responses like backups or escalations.
+
+<Steps>
+  <Step title="Generate Webhook URL" icon="link">
+    Log in to your dashboard at `https://dashboard.example.com/webhooks` and create a new webhook. Copy the secure URL.
+  </Step>
+  <Step title="Configure Your Monitoring Tool" icon="settings">
+    Add the webhook URL to your tool's notification settings. Use the sample payload below.
+  </Step>
+  <Step title="Test the Integration" icon="zap">
+    Trigger a test alert and verify it appears in your IT For Prof incident log.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="Nagios,Zabbix">
+  ````javascript
+  // Nagios command example
+  define command {
+      command_name    notify-host-by-itforprof
+      command_line    curl -X POST 'https://api.example.com/v1/webhooks/YOUR_WEBHOOK_ID' \
+        -H 'Content-Type: application/json' \
+        -d '{
+          "event": "host_down",
+          "host": "server-01",
+          "status": "critical"
+        }'
+  }
+  ````
+
+  ````bash
+  # Zabbix webhook action payload
+  curl -X POST 'https://api.example.com/v1/webhooks/YOUR_WEBHOOK_ID' \
+    -H 'Authorization: Bearer YOUR_API_KEY' \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "event": "trigger",
+      "host": "db-server",
+      "severity": "high",
+      "message": "Disk space low"
+    }'
+  ````
+</CodeGroup>
+
+## Custom Configuration for Legacy Systems
+
+Tailor IT For Prof to work with older networks or proprietary systems using custom scripts and adapters.
+
+<Tabs>
+  <Tab title="Windows Server (Active Directory)" icon="windows">
+    Integrate with legacy AD for user sync.
+
+    <ParamField header="X-AD-Domain" param-type="string" required="true">
+      Your Active Directory domain name.
+    </ParamField>
+
+    ````powershell
+    Invoke-RestMethod -Uri 'https://api.example.com/v1/sync/ad' `
+      -Method Post `
+      -Headers @{ 'Authorization' = 'Bearer YOUR_API_KEY'; 'X-AD-Domain' = 'corp.example.com' } `
+      -Body @{ users = @('user1', 'user2') }
+    ````
+  </Tab>
+  <Tab title="Cisco Routers" icon="network">
+    Monitor legacy Cisco gear via SNMP.
+
+    ````bash
+    # SNMP trap forwarder
+    snmptrap -v 2c -c public localhost:162 \
+      '1.3.6.1.4.1.9.9.41.1.2.1' \
+      server-01 ifOperStatus."GigabitEthernet0/1" i 2
+    # Forwarded to IT For Prof webhook
+    ````
+  </Tab>
+</Tabs>
+
+## API Access for Automated Support
+
+Access our REST API to automate support workflows. Base URL: `https://api.example.com/v1`.
+
+<Request tabs="cURL,JavaScript" show-lines="true">
+  ````bash
+  curl -X POST 'https://api.example.com/v1/support/tickets' \
+    -H 'Authorization: Bearer YOUR_API_KEY' \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "title": "Network outage",
+      "priority": "high",
+      "systems": ["server-01", "router-main"]
+    }'
+  ````
+
+  ````javascript
+  const response = await fetch('https://api.example.com/v1/support/tickets', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      title: 'Network outage',
+      priority: 'high',
+      systems: ['server-01', 'router-main']
+    })
+  });
+  const ticket = await response.json();
+  ````
+</Request>
+
+<Response tabs="201,400">
+  ````json
+  {
+    "id": "ticket-12345",
+    "status": "open",
+    "created_at": "2024-01-15T10:30:00Z"
+  }
+  ````
+
+  ````json
+  {
+    "error": "Invalid API key",
+    "code": 401
+  }
+  ````
+</Response>
+
+<ParamField query="api_key" param-type="string" required="true">
+  Your authentication token. Generate at `https://dashboard.example.com/api-keys`.
+</ParamField>
+
+<Expandable title="Advanced API Rate Limits" default-open="false">
+  API calls are limited to 1000 per hour. Exceeding this triggers a `429 Too Many Requests` response. Monitor usage via `/v1/usage` endpoint.
+</Expandable>
+
+<Callout kind="tip">
+  For production setups, rotate API keys monthly and use webhooks for event-driven integrations. See [Quickstart](/quickstart) for initial setup.
+</Callout>

@@ -1,0 +1,125 @@
+{
+  "name": "IT For Prof",
+  "initialRoute": "introduction",
+  "colors": {
+    "light": {
+      "brand": "#184ca4"
+    },
+    "dark": {
+      "brand": "#5279bb"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "icon": "book",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "icon": "rocket",
+            "pages": [
+              {
+                "title": "Introduction",
+                "path": "introduction",
+                "icon": "star"
+              },
+              {
+                "title": "Getting Started",
+                "path": "getting-started",
+                "icon": "play"
+              }
+            ]
+          },
+          {
+            "group": "Core Services",
+            "icon": "settings",
+            "pages": [
+              {
+                "title": "Services",
+                "path": "services",
+                "icon": "tool"
+              }
+            ]
+          },
+          {
+            "group": "Integrations",
+            "icon": "link",
+            "pages": [
+              {
+                "title": "Integrations",
+                "path": "integrations",
+                "icon": "plug"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Endpoints",
+            "openapi": "openapi.yaml"
+          }
+        ]
+      },
+      {
+        "tab": "Help Center",
+        "icon": "help-circle",
+        "pages": [
+          {
+            "title": "Help Center",
+            "path": "help-center",
+            "icon": "home"
+          },
+          {
+            "group": "FAQs",
+            "icon": "help-circle",
+            "expandable": false,
+            "pages": [
+              {
+                "title": "What is IT For Prof?",
+                "path": "help-center/faq/what-is-it-for-prof"
+              }
+            ]
+          },
+          {
+            "group": "Troubleshooting",
+            "icon": "alert-circle",
+            "expandable": false,
+            "pages": [
+              {
+                "title": "Cannot Connect to VPN",
+                "path": "help-center/troubleshooting/cannot-connect-to-vpn"
+              }
+            ]
+          },
+          {
+            "group": "Guides",
+            "icon": "book-open",
+            "expandable": false,
+            "pages": [
+              {
+                "title": "Schedule a Maintenance Request",
+                "path": "help-center/guides/schedule-maintenance-request"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "icon": "clock",
+        "pages": [
+          {
+            "title": "Release History",
+            "path": "changelog",
+            "icon": "history"
+          }
+        ]
+      }
+    ]
+  }
+}

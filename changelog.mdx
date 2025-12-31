@@ -1,0 +1,140 @@
+---
+title: Changelog
+description: Track the latest updates, enhancements, and changes to IT For Prof services and platform features.
+---
+
+## Recent Updates
+
+Stay informed about all changes to IT For Prof services, including infrastructure expansions, platform enhancements, and new integrations. You receive notifications via email when subscribed.
+
+<Callout kind="info">
+  Subscribe to our RSS feed or email updates at [https://dashboard.itforprof.com/account/notifications](https://dashboard.itforprof.com/account/notifications) to never miss a release.
+</Callout>
+
+<Update label="2024-10-15" description="v1.3.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added support for AWS EC2 auto-scaling configurations in our managed services.
+- Introduced real-time monitoring dashboards for network latency and uptime.
+
+## Improvements
+
+- Enhanced ticket response times by 40% through AI-assisted triage.
+- Updated security protocols to include zero-trust network access.
+
+## Integrations
+
+New Slack integration for instant alerts:
+
+<CodeGroup tabs="JavaScript,Python">
+```javascript
+const slackData = {
+  webhookUrl: "https://hooks.slack.com/services/YOUR_WEBHOOK",
+  message: "Server downtime detected"
+};
+await fetch(slackData.webhookUrl, {
+  method: "POST",
+  body: JSON.stringify({ text: slackData.message })
+});
+```
+
+```python
+import requests
+webhook_url = "https://hooks.slack.com/services/YOUR_WEBHOOK"
+payload = {"text": "Server downtime detected"}
+requests.post(webhook_url, json=payload)
+```
+</CodeGroup>
+
+</Update>
+
+<Update label="2024-09-25" description="v1.2.0" tags={["bugfix", "feature"]}>
+
+## New Features
+
+- Expanded service coverage to include Azure Kubernetes Service (AKS) management.
+- Added API endpoints for automated backup scheduling.
+
+## Bug Fixes
+
+- Resolved intermittent login issues on the dashboard during peak hours.
+- Fixed incorrect billing calculations for multi-region deployments.
+
+<Callout kind="success">
+  All users benefit from these fixes immediately—no action required.
+</Callout>
+
+</Update>
+
+<Update label="2024-08-10" description="v1.1.0" tags={["improvement", "breaking"]}>
+
+## Improvements
+
+- Optimized platform performance, reducing page load times by 25%.
+- Streamlined support ticket workflows with categorized templates.
+
+## Breaking Changes
+
+- Deprecated legacy API v1 endpoints. Migrate to v2 using the guide below.
+
+<Steps>
+  <Step title="Update API Calls" icon="code">
+    Replace `https://api.itforprof.com/v1/tickets` with `https://api.itforprof.com/v2/tickets`.
+  </Step>
+  <Step title="Test Integration" icon="play-circle">
+    Run your integration tests to verify compatibility.
+  </Step>
+  <Step title="Deploy Changes" icon="upload">
+    Push updates to production.
+  </Step>
+</Steps>
+
+</Update>
+
+## Upcoming Features
+
+Get a preview of what's coming next to IT For Prof.
+
+<Columns cols={3}>
+  <Card title="Multi-Cloud Orchestration" icon="cloud" href="/concepts/multi-cloud">
+    Centralized management across AWS, Azure, and GCP.
+  </Card>
+  <Card title="AI-Powered Predictions" icon="zap" href="/features/ai-monitoring">
+    Proactive issue detection before downtime occurs.
+  </Card>
+  <Card title="Advanced Analytics" icon="bar-chart" href="/guides/analytics">
+    Custom reports and trend analysis for your infrastructure.
+  </Card>
+</Columns>
+
+## How to Stay Updated
+
+<Tabs>
+  <Tab title="Dashboard" icon="monitor">
+    Enable notifications in your account settings:
+
+````bash
+# Visit dashboard and navigate to Notifications
+https://dashboard.itforprof.com/account/notifications
+````
+
+  </Tab>
+  <Tab title="API Polling" icon="api">
+    Poll for updates programmatically:
+
+````javascript
+const updates = await fetch("https://api.itforprof.com/v2/changelog", {
+  headers: { Authorization: `Bearer ${YOUR_API_KEY}` }
+});
+````
+
+  </Tab>
+  <Tab title="Email" icon="mail">
+    Sign up at support@itforprof.com for weekly digests.
+  </Tab>
+</Tabs>
+
+<Callout kind="tip">
+  Check back regularly or subscribe for automatic updates on service expansions and platform improvements.
+</Callout>
